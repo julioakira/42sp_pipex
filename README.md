@@ -20,7 +20,7 @@ pipex made with ❤ for 42sp.
 
 ## Output Redirection
 
-### Overwriting files with `>`
+### Overwriting/creating files with `>`
 
 - The `>` symbol is used for output (STDOUT) redirection. In other words, it redirects the output of the command right before it to the source right after it.
 - It is possible to redirect the STDOUT to files, devices and many other sources.
@@ -32,11 +32,46 @@ pipex made with ❤ for 42sp.
 	$ ps aux > comm_out
 	```
 
-### Appending to files with `>>`
+### Appending to/creating files with `>>`
 
 - The `>>` symbol is also used for output (STDOUT) redirection, but it has a major difference: if the provided file already exists, it appends the output to the end of the file.
 - While using `>>` if the file does not exists, it will be created in the same manner as the `>` command does.
 
 ## Input Redirection
 
-- (ongoing)
+### Redirecting Input with `<`
+
+- The `<` symbol is used for input (STDIN) redirection. The shell interprets as "read it from the provided source instead of reading from the keyboard".
+- The input redirection is commonly used to read from a file and pass it as a command input, like the following:
+
+	```
+		# Redirects the output of the `ls` command to a file called dirlist
+		$ ls > dirlist
+		# Used the dirlist file as a input for the `wc` command
+		$ wc -l < dirlist
+	```
+
+### Here Documents `<<`
+
+- The `<<` combination is used to tell shell to read the input from the provided source until a line containing the word that follows it, without trailing blanks (which required to be trimmed if needed). All the lines are read until the word is found and then fed to the command.
+- The `word` cannot be a variable expansion, a command substitution, filename or a arithmetic expansion. If any part of `word` is quoted, the delimiter is the result of the quote removal; if it is not quoted, all lines in the provided document are subjected to parameter expansion.
+
+## Selecting file descriptors with `&`
+
+- The `&` in the context of redirections defines a file descriptor, moreover, it tells bash to redirect a stream to a file descriptor which is a integer.
+- To redirect from STDOUT to STDERR we can do any of the following:
+
+	```
+	$ >&word
+	$ &>word
+	$ >word 2>&1
+	```
+
+- To append STDOUT to STDERR we can do:
+	```
+	$ &>>word
+	## Is also semantically equivalent to
+	$ >>word 2>&1
+	```
+
+- Source: https://www.gnu.org/software/bash/manual/html_node/Redirections.html
