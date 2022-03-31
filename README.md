@@ -76,8 +76,8 @@ pipex made with ❤ for 42sp.
 	$ >>word 2>&1
 	```
 
-- Sources:
+## Sources:
 
-https://www.gnu.org/software/bash/manual/html_node/Redirections.html
+- [GNU.org - Redirections (Bash Reference Manual)](https://www.gnu.org/software/bash/manual/html_node/Redirections.html)
 
-https://developer.ibm.com/tutorials/l-lpic1-103-4/
+- [IBM Developer - Prepare for LPIC-1 exam 1 – topic 103.4: Streams, pipes, and redirects](https://developer.ibm.com/tutorials/l-lpic1-103-4/)
