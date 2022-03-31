@@ -53,18 +53,20 @@ pipex made with ❤ for 42sp.
 
 ### Here Documents `<<`
 
-- The `<<` combination is used to tell shell to read the input from the provided source until a line containing the word that follows it, without trailing blanks (which required to be trimmed if needed). All the lines are read until the word is found and then fed to the command.
-- The `word` cannot be a variable expansion, a command substitution, filename or a arithmetic expansion. If any part of `word` is quoted, the delimiter is the result of the quote removal; if it is not quoted, all lines in the provided document are subjected to parameter expansion.
+- The `<<` combination is used to tell shell to read the input from the provided source until a line containing the marker that follows it, without trailing blanks (which required to be trimmed if needed). All the lines are read until the marker is found and then fed to the command.
+- The `marker` cannot be a variable expansion, a command substitution, filename or a arithmetic expansion. If any part of `word` is quoted, the delimiter is the result of the quote removal; if it is not quoted, all lines in the provided document are subjected to parameter expansion.
 
 ## Selecting file descriptors with `&`
 
 - The `&` in the context of redirections defines a file descriptor, moreover, it tells bash to redirect a stream to a file descriptor which is a integer.
-- To redirect from STDOUT to STDERR we can do any of the following:
+- To redirect STDOUT to STDERR we can do any of the following:
 
 	```
 	$ >&word
 	$ &>word
+	# All above ways work
 	$ >word 2>&1
+	$ echo "test" 1>&2
 	```
 
 - To append STDOUT to STDERR we can do:
@@ -74,4 +76,8 @@ pipex made with ❤ for 42sp.
 	$ >>word 2>&1
 	```
 
-- Source: https://www.gnu.org/software/bash/manual/html_node/Redirections.html
+- Sources:
+
+https://www.gnu.org/software/bash/manual/html_node/Redirections.html
+
+https://developer.ibm.com/tutorials/l-lpic1-103-4/
