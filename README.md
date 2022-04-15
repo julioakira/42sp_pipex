@@ -92,7 +92,7 @@ pipex made with ❤ for 42sp.
 - @params
 	- __status - The status code value returned to the parent associated process.
 - @returns
-	-void
+	- void
 
 - Terminates the process in which it is called upn and closes all file descriptors that belong to it. Usually, the `__status` codes are `EXIT_FAILURE = 1` and `EXIT_SUCCESS = 0` declared in`<stdio.h>`.
 - The `return()` function in the main function is equivalent to `exit()`.
