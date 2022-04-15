@@ -76,6 +76,89 @@ pipex made with ❤ for 42sp.
 	$ >>word 2>&1
 	```
 
+# Useful functions
+
+## `int pipe(int fds[2])`
+- @params - int fds[2]
+	- fd[0] - file descriptor for the ***read*** end of pipe (STDIN).
+	- fd[1] - file descriptor for the ***write*** end of pipe (STDOUT).
+- @returns
+	- 0 on success.
+	- -1 on error.
+- A pipe is conceptually a connection established between two processes, in such a way that the STDIN for one process becomes the STDOUT of the other process. The pipe system, then calls the first two available FDs in the FD table and allocates them for read and write ends of the created pipe.
+- The pipes use the FIFO in a queue data structure. The sizes of read and write might not match.
+
+## `void exit(int __status)`
+- @params
+	- __status - The status code value returned to the parent associated process.
+- @returns
+	-void
+
+- Terminates the process in which it is called upn and closes all file descriptors that belong to it. Usually, the `__status` codes are `EXIT_FAILURE = 1` and `EXIT_SUCCESS = 0` declared in`<stdio.h>`.
+- The `return()` function in the main function is equivalent to `exit()`.
+
+## `pid_t fork(void)`
+- @params
+	- void
+- @returns
+	- Success: The PID of the child process in the parent and 0 on the child.
+	- Failure: -1 is returned in the parent and no child process is created, indicated by `errno`.
+
+- The `fork()` function duplicates the calling process, duplicating it. The first process is called ***parent*** and the newly duplicated is called ***child***.
+
+
+## `int close(int fd)`
+- @params:
+	- fd - the file descriptor to be closed.
+- @returns:
+	- Success: 0.
+	- Error: -1. `errno` is set with the error.
+
+- Pretty straightforward: closes the provided file descriptor making it reusable. Any record locks associated with the opened file and removed. It it refers to the last opened file description with `open()` the alocated resources are freed; if the file has been removed using `unlink()`, the file is deleted.
+
+## `int dup(int oldfd)`
+-@params:
+	- oldfd - the refered file descriptor.
+- @returns
+	- Success: the new fd.
+	- Error: -1. `errno` is set with the error.
+
+- The `dup()` function allocates a new file descriptor that refers to the same file descriptor passed in `oldfd`. The newly created file descriptor is guaranteed to be the ***lowest-numbered*** file descriptor unused at the moment of the calling. They do not share the same flags, as `dup3()` is used for that purpose.
+- The closing and reusage tasks are performed ***atomically**, meaning that it happens one at a time. In multithreaded processes, the use of `dup()` and `close()` is dangerous. When a file descriptor is in use by system calls or threads in the same process, when a parallel thread allocates a file descritpr or incase of interruption of the program by a signal handler that allocates a file descriptor, the use of these functions together might result in race conditions, namely when `newfd` might be reused between the calling of `dup()` and `close()`.
+
+## `int dup2(int oldfd, int newfd)`
+- @params:
+	- oldfd  - file descriptor to be refered to.
+	- newfd - new file descriptor that refers to the parent file descriptor.
+- @returns
+	- Success: the new fd that must be a valid file descriptor.
+	- Error: -1. `errno` is set with the error.
+
+- Works exactly like the `dup()` function, except it uses the file descriptor specified in `newfd` instead of the lowest-numbered in the file descriptor table. If the `newfd` was previously open, it is closed silently before getting reused.
+- In cases where used with `close()` the `dup2()` function will not indicate or return errors associated with `close()`, hence why it is wise to check for the return value of `close()` beforehand.
+
+## `int access(const char *pathname, int mode)`
+- @params:
+	- pathname - the path of file to be checked
+	- mode - the access mode to be tested, namely the bitwise-inclusive `|` or `OR` to test several at once or `F_OK` `R_OK` `W_OK` `X_OK` to test if file exists, read access, write access and execution access, respectively.
+- @return
+	- Sucess: 0 meaning that the tested access is permited.
+	- Failure: -1 meaning that the file cannot be accessed, setting `errno` to the appropriate value.
+
+- Checks if a process has the permissions to access a file provided in `pathname` by looking at the real user ID (UID) and group ID (GID). If the `pathname` is a symlink, it is dereferenced to the actual target file.
+
+## `int execve(const char *pathname, char *const argv[], char *const envp[])`
+- @params
+	- pathname - the program to execute, refered to by its pathname pointer. It must be a binary executable or a script starting with `!#interpreter [args]`
+	- argv - an array of argument strings passed to the program pointed by pathname, terminated by a NULL pointer, meaning that `argv[argc] == NULL`. By convention, the first of them `argv[0]` must contain the filename associated with the file being executed.
+	- envp - is an array of pointer to strings in the form `key=value` as environment variables that follow the env variables conventions(case sensitiveness, must not contain the equal sign `=`,system-defined variables are all uppercase, their value can be represented as a string and must not contain an embedded null character).
+- @returns
+	- Success: Does not return, since it replaces the current process with the new one and the old one does not exists anymore. If the new process succeeds, it replaces the calling process, if it fails, it has nothing to do with `execve()` and returns back so the programmer can deal with the error.
+	- Error: -1 is returned with the appropriate `errno`.
+
+- The `execve()` function executes the program pointed to by `pathname` If it succeeds, all the data and stack of the calling process are overwritten by the new one.
+
+
 ## Sources:
 
 - [GNU.org - Redirections (Bash Reference Manual)](https://www.gnu.org/software/bash/manual/html_node/Redirections.html)

@@ -6,7 +6,7 @@
 #    By: jakira-p <jakira-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/31 04:03:46 by jakira-p          #+#    #+#              #
-#    Updated: 2022/03/31 04:31:47 by jakira-p         ###   ########.fr        #
+#    Updated: 2022/04/13 03:35:25 by jakira-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ UTILS_DIR = utils/
 DIST_DIR = dist/
 
 SRC_FILES = $(SRC_DIR)main.c \
+			$(UTILS_DIR)exit_error.c \
 
 OBJS = $(addprefix $(DIST_DIR),$(notdir $(SRC_FILES:.c=.o)))
 
