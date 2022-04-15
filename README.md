@@ -164,3 +164,11 @@ pipex made with ❤ for 42sp.
 - [GNU.org - Redirections (Bash Reference Manual)](https://www.gnu.org/software/bash/manual/html_node/Redirections.html)
 
 - [IBM Developer - Prepare for LPIC-1 exam 1 – topic 103.4: Streams, pipes, and redirects](https://developer.ibm.com/tutorials/l-lpic1-103-4/)
+
+- [die.net](https://linux.die.net/)
+
+- [The GNU Manuals Online](https://www.gnu.org/manual/manual.en.html)
+
+- [man7.org](https://man7.org)
+
+- [The Open Group Base Specifications](https://pubs.opengroup.org/)
