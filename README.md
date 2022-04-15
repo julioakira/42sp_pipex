@@ -164,6 +164,9 @@ pipex made with ❤ for 42sp.
 ## `char *strerror(int errnum)`
 - @params
 
+## `void perror(const char *str)`
+- @params
+
 ## `ssize_t write(int fd, const void *buf, size_t count)`
 - @params
 
@@ -175,6 +178,7 @@ pipex made with ❤ for 42sp.
 
 ## `int unlink(const char *pathname)`
 - @params
+
 
 ## Sources:
 
