@@ -158,6 +158,23 @@ pipex made with ❤ for 42sp.
 
 - The `execve()` function executes the program pointed to by `pathname` If it succeeds, all the data and stack of the calling process are overwritten by the new one.
 
+## `int open(const char *pathname, int flags)`
+- @params
+
+## `char *strerror(int errnum)`
+- @params
+
+## `ssize_t write(int fd, const void *buf, size_t count)`
+- @params
+
+## `pid_t wait(int *wstatus)`
+- @params
+
+## `pid_t waitpid(pid_t pid, int *stat_loc, int options)`
+- @params
+
+## `int unlink(const char *pathname)`
+- @params
 
 ## Sources:
 
