@@ -160,24 +160,59 @@ pipex made with ❤ for 42sp.
 
 ## `int open(const char *pathname, int flags)`
 - @params
+	- pathname - the path of the file to be opened.
+	- flags - The flags describing the operations to be carried on within the file. There are several variations on the mode.
+- @returns
+	- Success: Returns the integer relative to the newly created file descriptor.
+	- Error: -1 is returned and `errno` is set to indicate the error.
 
 ## `char *strerror(int errnum)`
 - @params
+	- errnum - the error number relative to be returned.
+- @returns
+	- A pointer to the string that contains the name of the error code provided as argument.
 
 ## `void perror(const char *str)`
 - @params
+	- str - the descriptive custom error message to be printed at stderr before the error message itself.
+- @returns
+	- void
 
 ## `ssize_t write(int fd, const void *buf, size_t count)`
 - @params
+	- fd - the file descriptor relative to the file to be written in.
+	- buf - the memory buffer on which the bytes will be written in and to the file pointed by the respective fd.
+	- count - the amount to be written in bytes.
+- @returns
+	- Success: the amount of bytes written.
+	- Error: -1 and `errno` is setup to indicate the error.
 
 ## `pid_t wait(int *wstatus)`
 - @params
+	- wstatus - describes the reason which caused the termination of the child process. It can also be `NULL` for when the status is not stored.
+- @returns
+	- Success: the PID of the terminated child process.
+	- Error: -1 and sets `errno`.
 
-## `pid_t waitpid(pid_t pid, int *stat_loc, int options)`
+- The `wait()` system call blocks the calling process until one of its child processes exits or receives a signal. There are two possible situations: 1) if there are at least one process running when `wait()` is called, the caller will be blocked until one of its child processes exits. The called then resumes its execution. 2) If there is no child processes running, then calling `wait()` has no effect at all.
+
+## `pid_t waitpid(pid_t pid, int *wstatus, int options)`
 - @params
+	- pid - the specified PID to be watched for state changes.
+	- stat_loc - if not `NULL`, it stores the status message in the int to which it points.
+	- options - The options value, which may vary. Specifies the behaviour.
+- @returns
+	- Success: the PID of the child whose state has changed.
+	- Error: -1 and sets `errno`.
 
 ## `int unlink(const char *pathname)`
 - @params
+	- pathname - the pathname of the name to be deleted from the filesystem.
+- @returns
+	- Success: returns 0.
+	- Error: returns -1 and sets up `errno`.
+
+- The `unlink()` function deletes the file that refers to the provided pathname. The disk space used by the deleted file is then made available for reuse.
 
 
 ## Sources:
