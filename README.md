@@ -114,7 +114,7 @@ pipex made with ❤ for 42sp.
 	- Success: 0.
 	- Error: -1. `errno` is set with the error.
 
-- Pretty straightforward: closes the provided file descriptor making it reusable. Any record locks associated with the opened file and removed. It it refers to the last opened file description with `open()` the alocated resources are freed; if the file has been removed using `unlink()`, the file is deleted.
+- Pretty straightforward: closes the provided file descriptor making it reusable. Any record locks associated with the opened file are removed. If it refers to the last opened file description with `open()` the alocated resources are freed; if the file has been removed using `unlink()`, the file is deleted.
 
 ## `int dup(int oldfd)`
 -@params:
